@@ -1,0 +1,33 @@
+mkmine - Personalize the user experience on a unix or unix-like workstation
+
+Originally by Ritchie Young - 6 Jan 2011
+
+As a user of multiple computers, I would like to be able to quickly set up my work
+environment in and get down to business.
+
+These are scripts that do just that. Primarily setting up my shell and vim
+configuration/plugins and ruby environments so that everything is just so.
+
+Specifically, I use:
+
+ - Bash, usually the default shell on the linux/os x
+ - RVM to manage my Ruby interpreters
+ - Bundler to manage my rubygems
+ - Git for SCM
+ - Vim as a text editor with the following plugins:
+   - vim-ruby, vim-rails, fugitive 
+ - Ruby on Rails for webapps
+
+This doesn't install all of these just yet, it is very much a work in progress.
+
+If you like the look of these, please feel free to fork it on Github and
+customize to suit yourself. Note, my name and details may appear several
+times through-out the distribution. Recommend you:
+
+ find home -exec grep -il ritchie {} \; -ls
+
+And modify those files to insert your own details.
+
+
+Best
+Ritchie

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+
+
+function on_path {
+  path=`which $1`
+  [ -x "$path" ]
+}
+
+function prerequisites {
+   for command in $*; do
+     on_path $command || (echo "Missing prerequisite '$command'."; exit 1)
+   done
+}
+
+function installing {
+  echo "Installing $*"
+}
+
+function installed {
+  echo "Skipping $*. Already installed."
+}
+
+on_path 'this_wont_be_on_the_path'  && echo "WARNING: The on_path method sees things that shouldn\'t be there"
+on_path 'ls' || echo "WARNING: The on_path method doesn\'t see things that should be there"
+
+if ! prerequisites bash curl git;  then
+  echo "Missing some prerequisites. Please fix and try again."
+  exit 1
+fi
+
+
+echo "All prerequisites met, let's install."
+
+if ! on_path rvm; then
+  installing RVM
+  bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+else
+  installed RVM
+fi
+

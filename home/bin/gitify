@@ -1,0 +1,17 @@
+#!/bin/sh
+
+for dir in * ; do
+  if [ -d "$dir" ] ; then
+    pushd "$dir"
+    if [ ! -d ".git" ] ; then
+      echo "$dir needs git"
+      cp ~/templates/.gitignore .
+      git init
+      git add .
+      git commit -m "Initial"
+    else
+      echo "$dir already has git"
+    fi
+    popd
+  fi
+done
