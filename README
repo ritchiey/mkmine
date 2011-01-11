@@ -2,9 +2,6 @@ mkmine - Personalize the user experience on a unix or unix-like workstation
 
 Originally by Ritchie Young - 6 Jan 2011
 
-*************************************************************************************
-*** WARNING: THIS WILL REPLACE CONFIG FILES IN YOUR HOME DIRECTORY WITHOUT ASKING ***
-*************************************************************************************
 As a user of multiple computers, I would like to be able to quickly set up my work
 environment in and get down to business.
 
