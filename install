@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+VIM_DOWNLOADS="~/Downloads/vim_plugins"
 
 function on_path {
   path=`which $1`
@@ -21,6 +21,32 @@ function installed {
   echo "Skipping $*. Already installed."
 }
 
+function install_rvm {
+  if ! on_path rvm; then
+    installing RVM
+    bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+  else
+    installed RVM
+  fi
+}
+
+function install_vim_ruby {
+  echo "vim-ruby"
+  mkdir -p $VIM_DOWNLOADS
+  pushd $VIM_DOWNLOADS
+  git clone https://github.com/vim-ruby/vim-ruby.git
+  ./vim-ruby/bin/vim-ruby-install.rb
+  popd
+}
+
+function install_vim_rails {
+  echo "[PENDING] vim-rails"
+}
+
+function install_fugitive {
+  echo "[PENDING] fugitive"
+}
+
 on_path 'this_wont_be_on_the_path'  && echo "WARNING: The on_path method sees things that shouldn\'t be there"
 on_path 'ls' || echo "WARNING: The on_path method doesn\'t see things that should be there"
 
@@ -30,12 +56,8 @@ if ! prerequisites bash curl git;  then
 fi
 
 
-echo "All prerequisites met, let's install."
-
-if ! on_path rvm; then
-  installing RVM
-  bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
-else
-  installed RVM
-fi
-
+echo "All prerequisites met, let's install..."
+install_rvm
+install_vim_ruby
+install_vim_rails
+install_fugitive 
