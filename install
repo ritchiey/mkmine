@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VIM_DOWNLOADS="~/Downloads/vim_plugins"
+VIM_DOWNLOADS="$HOME/Downloads/vim_plugins"
 
 function on_path {
   path=`which $1`
@@ -14,11 +14,28 @@ function prerequisites {
 }
 
 function installing {
+  echo "**********************************************************"
   echo "Installing $*"
+  echo "**********************************************************"
 }
 
 function installed {
   echo "Skipping $*. Already installed."
+}
+
+function clone_or_pull {
+  if [ -d $2/.git ]; then
+    pushd $2
+    git pull origin master
+    popd
+  else
+    git clone $1
+  fi
+}
+
+function install_home {
+  installing "home config..."
+  cp -R home/* $HOME
 }
 
 function install_rvm {
@@ -30,21 +47,39 @@ function install_rvm {
   fi
 }
 
+function mk_and_pushd {
+	mkdir -p $1
+	pushd $1
+}
+
+function install_config {
+  echo "Copying config files to your home directory."
+  cp -Ri home/ $HOME
+  echo "Done."
+}
+
 function install_vim_ruby {
-  echo "vim-ruby"
-  mkdir -p $VIM_DOWNLOADS
-  pushd $VIM_DOWNLOADS
-  git clone https://github.com/vim-ruby/vim-ruby.git
+  installing "vim-ruby"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/vim-ruby/vim-ruby.git vim-ruby
   ./vim-ruby/bin/vim-ruby-install.rb
   popd
 }
 
 function install_vim_rails {
-  echo "[PENDING] vim-rails"
+  installing "vim-rails"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/tpope/vim-rails.git vim-rails
+  cp -R vim-rails/autoload vim-rails/plugin $HOME/.vim
+  popd
 }
 
 function install_fugitive {
-  echo "[PENDING] fugitive"
+  installing "vim-fugitive"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/tpope/vim-fugitive.git vim-fugitive
+  cp -R vim-fugitive/plugin $HOME/.vim
+  popd
 }
 
 on_path 'this_wont_be_on_the_path'  && echo "WARNING: The on_path method sees things that shouldn\'t be there"
@@ -57,7 +92,16 @@ fi
 
 
 echo "All prerequisites met, let's install..."
-install_rvm
-install_vim_ruby
-install_vim_rails
-install_fugitive 
+if [ x$1 == xconfig ]; then
+  install_config
+else
+  install_rvm
+  install_vim_ruby
+  install_vim_rails
+  install_fugitive 
+  echo "*******************************************************************************"
+  echo "Software install complete, re-run with 'config' parameter to install the config"
+  echo "files in your home directory"
+  echo "*******************************************************************************"
+fi
+

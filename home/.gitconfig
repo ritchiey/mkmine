@@ -1,3 +1,27 @@
+# ADD LOCAL CONFIGURATION HERE
 [user]
 	name = Ritchie Young
 	email = ritchiey@gmail.com
+
+
+[alias]
+  co = checkout
+
+# DO NOT EDIT BELOW THIS LINE
+# remaining config stolen from JFerris
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	excludesfile = ~/.gitignore
+[alias]
+  c = commit -m
+  a = add
+  di = diff
+  dic = diff --cached
+  pl = pull
+  ps = push
+  plre = pull --rebase
+  st = status
+  out = log origin..HEAD
