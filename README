@@ -18,7 +18,12 @@ Specifically, I use:
    - vim-ruby, vim-rails, fugitive 
  - Ruby on Rails for webapps
 
-This doesn't install all of these just yet, it is very much a work in progress.
+Usage:
+
+./install
+
+This checks that you've already installed git, bash and curl and then installs the
+remaining items.
 
 If you like the look of these, please feel free to fork it on Github and
 customize to suit yourself. Note, my name and details may appear several
