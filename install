@@ -58,6 +58,17 @@ function install_config {
   echo "Done."
 }
 
+function install_ack {
+  installing "vim-ack"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/mileszs/ack.vim.git ack.vim
+  cp -R ack.vim/plugin ack.vim/doc $HOME/.vim
+  popd
+  if [ ! -x ~/bin/ack ]; then
+    curl http://betterthangrep.com/ack-standalone > ~/bin/ack && chmod 0755 ~/bin/ack
+  fi
+}
+
 function install_vim_ruby {
   installing "vim-ruby"
   mk_and_pushd $VIM_DOWNLOADS
@@ -99,6 +110,7 @@ else
   install_vim_ruby
   install_vim_rails
   install_fugitive 
+  install_ack
   echo "*******************************************************************************"
   echo "Software install complete, re-run with 'config' parameter to install the config"
   echo "files in your home directory"

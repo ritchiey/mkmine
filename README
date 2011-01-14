@@ -17,6 +17,7 @@ Specifically, I use:
  - Vim as a text editor with the following plugins:
    - vim-ruby, vim-rails, fugitive 
  - Ruby on Rails for webapps
+ - Ack and the Ack.vim plugin for recursive searching
 
 Usage:
 
