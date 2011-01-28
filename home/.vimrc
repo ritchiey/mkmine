@@ -1,5 +1,8 @@
 set nocompatible  " We don't want vi compatibility.
 
+" Enable pathogen to enable keeping installed bundles separate under ~/.vim
+call pathogen#runtime_append_all_bundles()
+
 " Enable syntax highlighting
 "syntax enable
 syn on

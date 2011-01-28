@@ -17,8 +17,14 @@ Specifically, I use:
  - Vim as a text editor with the following plugins:
    - vim-ruby, vim-rails, fugitive 
  - Ruby on Rails for webapps
+ - Ack and the Ack.vim plugin for recursive searching
 
-This doesn't install all of these just yet, it is very much a work in progress.
+Usage:
+
+./install
+
+This checks that you've already installed git, bash and curl and then installs the
+remaining items.
 
 If you like the look of these, please feel free to fork it on Github and
 customize to suit yourself. Note, my name and details may appear several

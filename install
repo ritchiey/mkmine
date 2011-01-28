@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VIM_DOWNLOADS="$HOME/Downloads/vim_plugins"
+VIM_DOWNLOADS="$HOME/.vim/bundle"
 
 function on_path {
   path=`which $1`
@@ -58,11 +58,31 @@ function install_config {
   echo "Done."
 }
 
+function install_pathogen {
+  installing "pathogen"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/tpope/vim-pathogen.git vim-pathogen
+  # Only pathogen needs to be installed directly under the .vim directory
+  # because it enables the other plugins to be accessible from their
+  # individual locations under ~/.vim/bundles
+  cp -R vim-pathogen/autoload $HOME/.vim
+  popd
+}
+
+function install_ack {
+  installing "vim-ack"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/mileszs/ack.vim.git ack.vim
+  popd
+  if [ ! -x ~/bin/ack ]; then
+    curl http://betterthangrep.com/ack-standalone > ~/bin/ack && chmod 0755 ~/bin/ack
+  fi
+}
+
 function install_vim_ruby {
   installing "vim-ruby"
   mk_and_pushd $VIM_DOWNLOADS
   clone_or_pull https://github.com/vim-ruby/vim-ruby.git vim-ruby
-  ./vim-ruby/bin/vim-ruby-install.rb
   popd
 }
 
@@ -70,7 +90,6 @@ function install_vim_rails {
   installing "vim-rails"
   mk_and_pushd $VIM_DOWNLOADS
   clone_or_pull https://github.com/tpope/vim-rails.git vim-rails
-  cp -R vim-rails/autoload vim-rails/plugin $HOME/.vim
   popd
 }
 
@@ -86,7 +105,6 @@ function install_fugitive {
   installing "vim-fugitive"
   mk_and_pushd $VIM_DOWNLOADS
   clone_or_pull https://github.com/tpope/vim-fugitive.git vim-fugitive
-  cp -R vim-fugitive/plugin $HOME/.vim
   popd
 }
 
@@ -103,11 +121,13 @@ echo "All prerequisites met, let's install..."
 if [ x$1 == xconfig ]; then
   install_config
 else
+  install_pathogen
   install_rvm
   install_vim_ruby
   install_vim_rails
   install_vim_cucumber
   install_fugitive 
+  install_ack
   echo "*******************************************************************************"
   echo "Software install complete, re-run with 'config' parameter to install the config"
   echo "files in your home directory"
