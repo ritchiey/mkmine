@@ -74,6 +74,14 @@ function install_vim_rails {
   popd
 }
 
+function install_vim_cucumber {
+  installing "vim_cucumber"
+  mk_and_pushd $VIM_DOWNLOADS
+  clone_or_pull https://github.com/tpope/vim-cucumber.git vim-cucumber
+  cp -R vim-cucumber/ $HOME/.vim
+  popd
+}
+
 function install_fugitive {
   installing "vim-fugitive"
   mk_and_pushd $VIM_DOWNLOADS
@@ -98,6 +106,7 @@ else
   install_rvm
   install_vim_ruby
   install_vim_rails
+  install_vim_cucumber
   install_fugitive 
   echo "*******************************************************************************"
   echo "Software install complete, re-run with 'config' parameter to install the config"

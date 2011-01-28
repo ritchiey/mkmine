@@ -1,5 +1,9 @@
+set nocompatible  " We don't want vi compatibility.
+
 " Enable syntax highlighting
+"syntax enable
 syn on
+
 
 " Enable line numbering
 set number
@@ -33,8 +37,8 @@ set hidden
 set wildmode=longest,list,full
 set wildmenu
 
-filetype on  " Automatically detect file types.
-set nocompatible  " We don't want vi compatibility.
+filetype off  " Force reload (for Ubuntu)
+filetype plugin indent on
 
 " Add recently accessed projects menu (project plugin)
 set viminfo^=!
@@ -46,10 +50,12 @@ map <m-n> :cn
 " Change which file opens after executing :Rails command
 let g:rails_default_file='config/database.yml'
 
-syntax enable
-
 " Word-wise word copy
 noremap! <C-Y> <Esc>klyiwjpa
 
 set autoindent smartindent
 set ruler
+
+compiler rspec
+nmap <Leader>fd :cf /tmp/autotest.txt<cr> :compiler rspec<cr>
+
