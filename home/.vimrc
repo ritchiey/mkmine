@@ -1,3 +1,6 @@
+" Enable pathogen to enable keeping installed bundles separate under ~/.vim
+call pathogen#runtime_append_all_bundles()
+
 " Enable syntax highlighting
 syn on
 
