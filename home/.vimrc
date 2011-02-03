@@ -56,3 +56,16 @@ noremap! <C-Y> <Esc>klyiwjpa
 
 set autoindent smartindent
 set ruler
+
+
+" My keyboard shortcuts
+" Should probably move these into a filetype
+map <m-r> :wa\|:!%<cr>
+map <m-s> :wa\|:!spec %<cr>
+map <m-w> :wa\|:Rake cucumber:wip<cr>
+map <m-m> :wa\|:Rmodel 
+map <m-v> :wa\|:Rview 
+map <m-c> :wa\|:Rcontroller 
+
+
+
